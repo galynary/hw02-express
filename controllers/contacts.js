@@ -1,10 +1,10 @@
-const {Contact}  = require("../controllers/contacts");
+const {Contact} = require("../models/contact");
 const { addSchema } = require("../schemas/contact");
 const { HttpError } =require("../helpers/HttpError")
 const { ctrlWrapper } = require("../helpers/ctrlWrapper");
 
 const listContacts = async (req, res) => {
-  const result = await Contact.find({});
+  const result = await Contact.find();
   res.status(200).json(result);
 };
 const getContactById = async (req, res) => {
