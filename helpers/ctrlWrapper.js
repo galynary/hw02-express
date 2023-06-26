@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const ctrlWrapper = (ctrl) => {
 	const func = async (req, res, next) => {
 		try {
@@ -10,4 +9,4 @@ const ctrlWrapper = (ctrl) => {
 	return func;
 };
 
-module.exports = { ctrlWrapper };
+module.exports = ctrlWrapper;
