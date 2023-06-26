@@ -2,9 +2,10 @@ const {
 	Contact,
 	addSchema,
 	updateFavoriteSchema,
+	updateSchema,
 } = require("../models/contact");
-const { HttpError } = require("../helpers/HttpError");
-const ctrlWrapper = require("../helpers/ctrlWrapper");
+
+const { HttpError, ctrlWrapper } = require("../helpers");
 
 const listContacts = async (req, res) => {
 	const result = await Contact.find();
@@ -43,7 +44,7 @@ const removeContact = async (req, res, next) => {
 };
 
 const updateContact = async (req, res) => {
-	const { error } = addSchema.validate(req.body);
+	const { error } = updateSchema.validate(req.body);
 	if (error) {
 		throw HttpError(404, "missing fields");
 	}
