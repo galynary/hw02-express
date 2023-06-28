@@ -14,10 +14,6 @@ const register = async (req, res) => {
 		name: newUser.name,
 	});
 };
-<<<<<<< HEAD
-
-=======
->>>>>>> 04-auth
 module.exports = {
 	register: ctrlWrapper(register),
 };
