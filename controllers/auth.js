@@ -9,6 +9,7 @@ const register = async (req, res) => {
 		name: newUser.name,
 	});
 };
+
 module.exports = {
 	register: ctrlWrapper(register),
 };
