@@ -38,5 +38,4 @@ router.patch(
 	ctrl.updateFavorite
 );
 
->>>>>>> master
 module.exports = router;
