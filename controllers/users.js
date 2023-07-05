@@ -29,9 +29,8 @@ const register = async (req, res) => {
 		password: hashPassword,
 		avatarURL,
 	});
-	return res.status(201).json({
-		email: newUser.email,
-		name: newUser.name,
+	res.status(201).json({
+		user: { email: newUser.email, subscription: newUser.subscription },
 	});
 };
 
@@ -82,7 +81,6 @@ const updateAvatar = async (req, res) => {
 	const image = await Jimp.read(tempUpload);
 	await image.resize(250, 250);
 	await image.writeAsync(tempUpload);
-
 	const filename = `${_id}_${originalname}`;
 	const resultUpload = path.join(avatarsDir, filename);
 	await fs.rename(tempUpload, resultUpload);
