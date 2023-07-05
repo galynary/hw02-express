@@ -20,6 +20,7 @@ const userSchema = new Schema(
 			type: String,
 			required: [true, "Email is required"],
 			unique: true,
+			match: emailRegexp,
 		},
 		subscription: {
 			type: String,
