@@ -142,6 +142,7 @@ const updateAvatar = async (req, res) => {
 		avatarURL,
 	});
 };
+
 module.exports = {
 	register: ctrlWrapper(register),
 	verifyEmail: ctrlWrapper(verifyEmail),
