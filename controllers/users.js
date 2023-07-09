@@ -93,6 +93,9 @@ const login = async (req, res) => {
 	if (!user || !passwordCompare) {
 		throw HttpError(401, "Email or password is wrong");
 	}
+	if (!user.verify) {
+		throw HttpError(401, "Email not verified");
+	}
 
 	const payload = {
 		id: user._id,
@@ -132,6 +135,7 @@ const updateAvatar = async (req, res) => {
 	const image = await Jimp.read(tempUpload);
 	await image.resize(250, 250);
 	await image.writeAsync(tempUpload);
+
 	const filename = `${_id}_${originalname}`;
 	const resultUpload = path.join(avatarsDir, filename);
 	await fs.rename(tempUpload, resultUpload);
