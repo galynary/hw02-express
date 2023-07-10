@@ -29,13 +29,13 @@ const register = async (req, res) => {
 		avatarURL,
 		verificationToken,
 	});
-
+	// створюємо електронну пошту користувача
 	const verifyEmail = {
 		to: email,
 		subject: "Verify email",
-		html: `<a target="_blank" href="${BASE_URL}/users/verify/${verificationToken}" >Click verify email</a>`,
+		html: `<a target="_blank" href="${BASE_URL}/api/auth/verify/${verificationToken}" >Click verify email</a>`,
 	};
-
+	// відсилаємо електронну пошту користувача
 	await sendEmail(verifyEmail);
 
 	res.status(201).json({
@@ -55,7 +55,7 @@ const verifyEmail = async (req, res) => {
 
 	await User.findByIdAndUpdate(user._id, {
 		verify: true,
-		verificationToken: null,
+		verificationToken: "",
 	});
 
 	res.status(200).json({
@@ -88,11 +88,16 @@ const resendVerifyEmail = async (req, res) => {
 const login = async (req, res) => {
 	const { email, password } = req.body;
 	const user = await User.findOne({ email });
+	// перевіряємо чи є така людина в базі
 	const passwordCompare = await bcrypt.compare(password, user.password);
-	// перевіряємо паролі, який ввели з тим, який є, чи співпадають
+	// перевіряємо чи співпадають паролі
 	if (!user || !passwordCompare) {
 		throw HttpError(401, "Email or password is wrong");
 	}
+	if (!user.verify) {
+		throw HttpError(401, "Email not verified");
+	}
+
 	if (!user.verify) {
 		throw HttpError(401, "Email not verified");
 	}
